@@ -104,5 +104,12 @@ RUN cp .env.example .env \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
+# Copy entrypoint script dan berikan izin eksekusi
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set Entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 EXPOSE 80
 CMD ["apache2-foreground"]
