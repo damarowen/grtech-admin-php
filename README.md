@@ -1,6 +1,53 @@
 # GRTech Admin
 
-Admin app built with Laravel 13, Inertia.js (Vue 3), Tailwind CSS, Ant Design Vue, and Vite.
+Admin app for managing Companies and Employees with role-based access control. Built with Laravel 13, Inertia.js (Vue 3), Tailwind CSS, Ant Design Vue, and Vite. Includes Breeze authentication (register disabled), server-side pagination, file uploads for company logos, and admin-only management.
+
+## Project Structure
+```
+├─ app/
+│  ├─ Http/
+│  │  ├─ Controllers/
+│  │  │  ├─ CompanyController.php
+│  │  │  └─ EmployeeController.php
+│  │  ├─ Middleware/
+│  │  │  └─ IsAdmin.php
+│  │  ├─ Requests/
+│  │  │  ├─ StoreCompanyRequest.php
+│  │  │  ├─ UpdateCompanyRequest.php
+│  │  │  └─ EmployeeRequest.php
+│  │  └─ Resources/
+│  │     ├─ CompanyResource.php
+│  │     └─ EmployeeResource.php
+│  ├─ Models/
+│  │  ├─ Company.php
+│  │  ├─ Employee.php
+│  │  └─ User.php
+│  └─ Notifications/
+│     └─ NewEmployeeNotification.php
+├─ bootstrap/
+│  └─ app.php (middleware alias 'admin')
+├─ database/
+│  ├─ migrations/ (companies, employees, users, jobs, etc.)
+│  └─ seeders/
+│     └─ DatabaseSeeder.php (admin & user accounts)
+├─ resources/
+│  ├─ js/
+│  │  ├─ Pages/
+│  │  │  ├─ Companies/Index.vue
+│  │  │  └─ Employees/Index.vue
+│  │  ├─ Layouts/AuthenticatedLayout.vue
+│  │  └─ app.js
+│  └─ css/app.css
+├─ routes/
+│  ├─ web.php (companies & employees protected by auth+admin)
+│  └─ auth.php (register disabled)
+├─ public/ (index.php, build assets, storage symlink)
+├─ tests/
+├─ composer.json
+├─ package.json
+├─ vite.config.js
+└─ Dockerfile, .dockerignore
+```
 
 ## Stack
 - PHP 8.3, Laravel 13 (Sanctum)

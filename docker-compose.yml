@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: grtech-admin:latest
+    container_name: grtech-admin-app
+    restart: always
+    ports:
+      - "8001:80"
+    volumes:
+      # Agar database SQLite tidak hilang saat redeploy
+      - ./database:/var/www/html/database
+      # Agar logo perusahaan yang diupload tidak hilang
+      - ./storage/app/public:/var/www/html/storage/app/public
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/html/database/database.sqlite
