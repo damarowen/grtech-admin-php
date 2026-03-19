@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules
+npm-debug.log*
+yarn-error.log*
+.pnpm-store
+
+# PHP dependencies
+vendor
+composer.phar
+
+# Build artifacts
+public/build
+public/hot
+public/storage
+
+# VCS & IDE
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+
+# Env & OS files
+.env
+.env.*
+.DS_Store
+
+# Tests
+/tests
+phpunit.xml
