@@ -10,18 +10,18 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@grtech.com',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
+        // Admin user
+        $admin = User::firstOrNew(['email' => 'admin@grtech.com']);
+        $admin->name = 'Admin User';
+        $admin->password = Hash::make('password');
+        $admin->role = 'admin';
+        $admin->save();
 
-        User::factory()->create([
-            'name' => 'Standard User',
-            'email' => 'user@grtech.com',
-            'password' => Hash::make('password'),
-            'role' => 'user',
-        ]);
+        // Standard user
+        $user = User::firstOrNew(['email' => 'user@grtech.com']);
+        $user->name = 'Standard User';
+        $user->password = Hash::make('password');
+        $user->role = 'user';
+        $user->save();
     }
 }
