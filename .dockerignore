@@ -27,3 +27,8 @@ public/storage
 # Tests
 /tests
 phpunit.xml
+
+bootstrap/cache/*.php
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/cache/*
