@@ -22,7 +22,6 @@ public/storage
 
 # Env & OS files
 .env
-.env.*
 .DS_Store
 
 # Tests
