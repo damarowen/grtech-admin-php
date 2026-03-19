@@ -15,3 +15,4 @@ services:
       - APP_DEBUG=true
       - DB_CONNECTION=sqlite
       - DB_DATABASE=/var/www/html/storage/app/database.sqlite
+      - APP_URL=${APP_URL}
