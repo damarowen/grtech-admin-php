@@ -18,7 +18,6 @@ services:
       - DB_DATABASE=${DB_DATABASE}
       - APP_URL=${APP_URL}
 
-# Tambahkan bagian ini di paling bawah file
 volumes:
   grtech_sqlite_data:
     driver: local
