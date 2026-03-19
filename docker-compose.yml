@@ -9,7 +9,7 @@ services:
     ports:
       - "8001:80"
     volumes:
-      # Ganti ./ dengan nama volume permanen
+      # Ganti ./ dengan nama volume permanenn
       - grtech_sqlite_data:/var/www/html/storage/app
     environment:
       - APP_ENV=${APP_ENV}
