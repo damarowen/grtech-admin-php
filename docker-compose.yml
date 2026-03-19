@@ -7,7 +7,7 @@ services:
     container_name: grtech-admin-app
     restart: always
     ports:
-      - "8000:80"
+      - "8001:80"
     volumes:
       # Agar database SQLite tidak hilang saat redeploy
       - ./database:/var/www/html/database
