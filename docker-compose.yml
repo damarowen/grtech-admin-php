@@ -9,10 +9,16 @@ services:
     ports:
       - "8001:80"
     volumes:
-      - ./storage/app:/var/www/html/storage/app
+      # Ganti ./ dengan nama volume permanen
+      - grtech_sqlite_data:/var/www/html/storage/app
     environment:
       - APP_ENV=${APP_ENV}
       - APP_DEBUG=${APP_DEBUG}
       - DB_CONNECTION=${DB_CONNECTION}
       - DB_DATABASE=${DB_DATABASE}
       - APP_URL=${APP_URL}
+
+# Tambahkan bagian ini di paling bawah file
+volumes:
+  grtech_sqlite_data:
+    driver: local

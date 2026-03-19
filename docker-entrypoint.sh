@@ -1,23 +1,32 @@
 #!/bin/bash
 set -e
 
-# 1. Pastikan folder storage/app benar-benar ada (antisipasi volume kosong)
-mkdir -p /var/www/html/storage/app
+# 1. Pastikan folder storage ada
+mkdir -p /var/www/html/storage/app/public/logos
+mkdir -p /var/www/html/storage/framework/{sessions,views,cache}
 
-# 2. PERMANEN CHOWN: Jalankan setiap kali container start
-# Ini akan memastikan user www-data punya hak akses penuh
-echo "Mengatur hak akses folder storage secara permanen..."
-chown -R www-data:www-data /var/www/html/storage
-chmod -R 775 /var/www/html/storage
-
-# 3. Pastikan file database ada
+# 2. Cek apakah ini instalasi pertama kali (database belum ada)
 if [ ! -f /var/www/html/storage/app/database.sqlite ]; then
+    echo "Peringatan: Database tidak ditemukan. Membuat database baru..."
     touch /var/www/html/storage/app/database.sqlite
+    
+    # Beri izin akses ke file database baru
     chown www-data:www-data /var/www/html/storage/app/database.sqlite
+    chmod 664 /var/www/html/storage/app/database.sqlite
+
+    # Jalankan migrasi DAN seeding pertama kali
+    echo "Menjalankan migrasi dan seeding awal..."
+    php artisan migrate --force --seed
+else
+    echo "Database ditemukan. Menjalankan migrasi tambahan jika ada..."
+    # Jalankan migrasi biasa (tanpa seed agar tidak duplikat)
+    php artisan migrate --force
 fi
 
-# 4. Jalankan migrasi
-php artisan migrate --force
+# 3. Atur permission folder storage & bootstrap cache agar tidak error 500
+echo "Mengoptimalkan permission..."
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# 5. Jalankan perintah utama (Apache)
+# 4. Jalankan perintah utama
 exec "$@"
